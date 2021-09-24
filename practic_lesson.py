@@ -8,6 +8,15 @@ class Tree:
         if found_node == None:
             return False
         return True
+    
+    def print_elems(self):
+        if not self.root:
+            print("No elements in tree")
+            return
+        print(self.root.value, end=", ")
+        self._print_node_child(self.root.left)
+        self._print_node_child(self.root.right)
+        
 
     def delete(self, value):
         pass
@@ -62,6 +71,18 @@ class Tree:
         else:
             # go left
             return self._search(node_to_check.left, value)
+
+    def _print_node_child(self, current_node):
+        if current_node:
+            print(current_node.value, end=", ")
+            self._print_node_child(current_node.left)
+        else:
+            return
+
+        if current_node.left:
+            self._print_node_child(current_node.left)
+        if current_node.right:
+            self._print_node_child(current_node.right)
             
 
 
@@ -85,3 +106,5 @@ print(tree.search(8))
 print(tree.search(6))
 print(tree.search(5))
 print(tree.search(16))
+
+print(tree.print_elems())
