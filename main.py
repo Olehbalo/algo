@@ -4,4 +4,4 @@ import unittest
 
 mas= [int(i) for i in input().split(",")]
 n=str(input())
-print(merge_sort(mas,n))
+print( merge_sort(mas,n))
