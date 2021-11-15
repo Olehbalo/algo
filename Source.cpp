@@ -2,41 +2,43 @@
 #include <iostream>
 
 using namespace std;
-const int me = 5;
 
-int t = 1, n, c;
-int a[me];
 int main() {
-    ios_base::sync_with_stdio(0);
+    const int li = 10;
+    int t = 1, co, ag;
+    int a[li];
 
     while (t--) {
-        cout << "Enter cows:";
-        cin >> n;
-        cout << "Enter agressive cows:";
-        cin >> c;
-        for (int i = 0; i < n; i++) {
-            cout << "Enter section:";
-            cin >> a[i];
+        cout << "Enter all cows:";
+        cin >> co;
+        cout << "Number agressive cows:";
+        cin >> ag;
+        for (int r = 0; r < co; r++) {
+            cout << "Number section:";
+            cin >> a[r];
         }
-        sort(a, a + n);
+        sort(a, a + co);
 
-        int low = 0, high = a[n - 1], mid, best = 0;
-        while (low <= high) {
+        
+        int mid = 0;
+        for (int low = 0,  high = a[co - 1]; low <= high; ) {
             mid = (low + high + 1) / 2;
-            int cnt = 1, left = 0;
-            for (int i = 1; i < n && cnt < c; i++) {
-                if (a[i] - a[left] >= mid)
-                    left = i, cnt++;
-            }
-            if (cnt >= c) {
-                best = mid;
-                low = mid + 1;
-            }
-            else {
-                high = mid - 1;
-            }
+            int count = 1,
+            left = 0;
+            
+        for (int right = 1; right < co && count < ag; right++) {
+            if (a[right] - a[left] >= mid)
+            left = right, count++;
         }
-        cout << best << endl;
+        if (count >= ag) {
+            low = mid + 1;
+        }
+        else {
+            high = mid - 1;
+            }
+        
+        }
+        cout << mid << endl;
     }
 
     return 0;
