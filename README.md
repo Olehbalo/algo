@@ -1,11 +1,32 @@
-# algo
-## Task 3
-Farmer John has built a new long barn, with N (2 <= N <= 100,000) stalls. The stalls are located along a straight line at positions x1,...,xN (0 <= xi <= 1,000,000,000).
+# IJONES
 
-His C (2 <= C <= N) cows don't like this barn layout and become aggressive towards each other once put into a stall. 
-To prevent the cows from hurting each other, FJ wants to assign the cows to the stalls, such that the minimum distance between any two of them is as large as possible. 
-What is the largest minimum distance?
+ # В пошуках Святого Грааля Iндiана Джонс зiткнувся з небезпечним випробуванням.
+ SЙому потрiбно пройти крiзь прямокутний коридор, який складається з крихких плит
+ (пригадайте сцену з фiльму «Iндiана Джонс i останнiй хрестовий похiд»). На кожнiй
+ плитi написана одна лiтера
+ Можна починати з будь-якої плити в найлiвiшому стовпцi. Виходом iз коридору є
+верхня права та нижня права плити (для прикладу вище — a та f).
+Iндiана спритний, i може переходити не лише на сусiдню плиту, а й перестрибувати
+через кiлька плит. Проте, щоб не провалитися крiзь пiдлогу, вiн повинен дотримуватися
+таких правил:
+1. Пiсля кожного кроку Iндiана повинен опинятися правiше, нiж був перед цим.
 
+a a a
+c a b
+d e f
+2. Завжди можна переходити на одну плиту праворуч.
+a a a
+c a b
+d e f
 
-## How to run 
-Clone repo and run cpp file
+3. Крiм руху на одну плиту праворуч, можна перестрибувати, проте лише на ту
+саму лiтеру. Наприклад, з лiтери a можна перестрибнути на будь-яку iншу
+лiтеру a за умови, що ми цим ходом просунемося правiше.
+
+a a a
+c a b
+d e f
+
+1
+
+# Для заданого коридору, пiдрахуйте, скiльки всього # iснує способiв пройти його успiшно.
