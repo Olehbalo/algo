@@ -10,36 +10,33 @@ def badCharHeuristic(string, size):
     return badChar
 
 
-def search(txt, pat):
+def boyer_moore(text, pat):
 
-    m = len(pat)
-    n = len(txt)
+    pattern_len = len(pat)
+    text_len = len(text)
 
+    badChar = badCharHeuristic(pat, pattern_len)
 
-    badChar = badCharHeuristic(pat, m)
+    shift = 0
+    while (shift <= text_len  - pattern_len):
+        j =pattern_len - 1
 
-    s = 0
-    while (s <= n - m):
-        j = m - 1
-
-        while j >= 0 and pat[j] == txt[s + j]:
+        while j >= 0 and pat[j] == text[shift + j]:
             j -= 1
 
         if j < 0:
-            print("Pattern occur at shift = {}".format(s))
-            s += (m - badChar[ord(txt[s + m])] if s + m < n else 1)
+            print("Pattern occur at shift = {}".format(shift))
+            shift += (pattern_len - badChar[ord(text[shift + pattern_len])] 
+                if shift + pattern_len < text_len  else 1)
         else:
 
-            s += max(1, j - badChar[ord(txt[s + j])])
+            shift += max(1, j - badChar[ord(text[shift + j])])
 
         # Driver program to test above function
 
 
-def main():
-    txt = "ABAAABCDD"
-    pat = "AB"
-    search(txt, pat)
-
 
 if __name__ == '__main__':
-    main()
+    txt = "Hello, the session is nears"
+    pat = "sion"
+    boyer_moore(txt, pat)
