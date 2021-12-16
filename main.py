@@ -1,49 +1,38 @@
-def rabin_karp(search_text, pattern, mod=107, base=10):
-    def hash_str(string_to_hash):
-        h = 0
-        for letter in string_to_hash:
-            h = (h*base + ord(letter)) % mod
-        return h
+# Numbers of alphabet which we call base
+alphabet_size = 256
+# Modulus to hash a string
+modulus = 1000003
 
-    def rehash(string_hash, removed_letter, new_letter):
-        new_hash = string_hash - (first_char_coeff * ord(removed_letter)) % mod
-        new_hash *= base
-        new_hash += ord(new_letter)
-        new_hash %= mod
 
-        return new_hash
+def rabin_karp(pattern, text):
+    p_len = len(pattern)
+    t_len = len(text)
+    if p_len > t_len:
+        return False
 
-    def count_first_coeff():
-        counted_coef = 1
-        for _ in range(1, pattern_len):
-            counted_coef *= base
-            counted_coef %= mod
-        return counted_coef
+    pattern_hash = 0
+    text_hash = 0
+    modulus_power = 1
+    count = 0
 
-    pattern_len = len(pattern)
-    if pattern_len == 0:
-        return []
+    for i in range(p_len):
+        pattern_hash = (ord(pattern[i]) + pattern_hash * alphabet_size) % modulus
+        text_hash = (ord(text[i]) + text_hash * alphabet_size) % modulus
+        if i == p_len - 1:
+            continue
+        modulus_power = (modulus_power * alphabet_size) % modulus
 
-    search_results = []
-    text_len = len(search_text)
-    compare_point = 0
-    last_char_pos_to_check = text_len - pattern_len
+    for i in range(0, t_len - p_len + 1):
+        if text_hash == pattern_hash and text[i: i + p_len] == pattern:
+            count += 1
+        if i == t_len - p_len:
+            continue
+        text_hash = ((text_hash - ord(text[i]) * modulus_power) * alphabet_size + ord(text[i + p_len])) % modulus
+    return count
 
-    pattern_hash = hash_str(pattern)
-    search_hash = hash_str(search_text[compare_point:pattern_len])
 
-    first_char_coeff = count_first_coeff()
+if __name__ == "__main__":
+    pattern = "12k23"
+    text = "alskfjaldsabc1abc1abc12k23adsfabcabcalskfjaldsk23adasadbc1a"
 
-    for compare_point in range(last_char_pos_to_check + 1):
-        if search_hash == pattern_hash:
-            match_found = True
-            for i in range(pattern_len):
-                if search_text[i + compare_point] != pattern[i]:
-                    match_found = False
-                    break
-            if match_found:
-                search_results.append(compare_point)
-        if compare_point != last_char_pos_to_check:
-            search_hash = rehash(search_hash, search_text[compare_point], search_text[compare_point+pattern_len])
-
-    return search_results
+    print(rabin_karp(pattern, text))
