@@ -1,15 +1,27 @@
 import unittest
+from main import rabin_karp
 
-from boyermoore import *
 
-class TestMoore(unittest.TestCase):
+class TestRabinKarp(unittest.TestCase):
+    def test1(self):
+        self.assertEqual([4, 11], rabin_karp("Hello session!", "o"))
+        self.assertEqual([6], rabin_karp("Hello session!", "ses"))
 
-    def test_boyer_moore_1(self):
-        text = "Hello, the session is nears"
-        pat = "i"
-        self.assertEqual(boyer_moore(text, pat), [15, 19])
+    def test2(self):
+        self.assertEqual([], rabin_karp("HIolehds", ""))
 
-    def test_boyer_moore_2(self):
-        text = "Hello, the session is nears"
-        pat = ""
-        self.assertEqual(boyer_moore(text, pat ), [None])
+    def test3(self):
+        self.assertEqual(
+            [2, 13, 28],
+            rabin_karp("I am Oleh, I am eighteen, I am study in Lviv", "am")
+        )
+
+    def test4(self):
+        self.assertEqual(
+            [],
+            rabin_karp("Rabin-Karp algorithm is an algorithm used to find / match patterns in text using a hash function", "Ukraine")
+        )
+
+
+if __name__ == '__main__':
+    unittest.main()
